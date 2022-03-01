@@ -155,7 +155,7 @@ packages:
       path: "/Users/imac/git-flutter/id_scanner"
       relative: false
     source: path
-    version: "0.0.1"
+    version: "0.0.2"
   lints:
     dependency: transitive
     description:

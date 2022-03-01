@@ -12,7 +12,7 @@ class KimlikOkuyucu {
   final ImagePicker _picker = ImagePicker();
 
   /// it will check the image source
-  ImageSource source;
+  late ImageSource source;
 
   /// a model class to store cnic data
   KimlikModel _kimlikDetay = KimlikModel();
@@ -21,9 +21,9 @@ class KimlikOkuyucu {
 
 
   /// this method will be called when user uses this package
-  Future<KimlikModel> scanImage({ImageSource imageSource}) async {
+  Future<KimlikModel> scanImage({required ImageSource imageSource}) async {
     source = imageSource;
-    XFile image = await _picker.pickImage(source: imageSource);
+    XFile? image = await _picker.pickImage(source: imageSource);
     if (image == null) {
       return Future.value(_kimlikDetay);
     }
@@ -33,10 +33,11 @@ class KimlikOkuyucu {
     else {
       return await scanCnic(imageToScan: InputImage.fromFilePath(image.path));
     }
+    return await scanCnic(imageToScan: InputImage.fromFilePath(image.path));
   }
 
   /// this method will process the images and extract information from the card
-  Future<KimlikModel> scanCnic({InputImage imageToScan}) async {
+  Future<KimlikModel> scanCnic({required InputImage imageToScan}) async {
     List<String> kimlikTarihleri = [];
     GoogleMlKit.vision.languageModelManager();
     TextDetector textDetector = GoogleMlKit.vision.textDetector();
@@ -114,7 +115,7 @@ class KimlikOkuyucu {
     }
   }
 
-  static List<String> sortDateList({List<String> dates}) {
+  static List<String> sortDateList({required List<String> dates}) {
     List<DateTime> tempList = [];
     DateFormat format = DateFormat("dd/MM/yyyy");
     for (int i = 0; i < dates.length; i++) {
