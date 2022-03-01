@@ -1,6 +1,6 @@
 name: kimlik_okuyucu
 description: A Flutter package that allows scanning of the Republic of Turkey ID card.
-version: 0.0.2
+version: 0.0.3
 author: İrem Taşcı<tasciirem06@gmail.com>
 homepage: https://github.com/iremtasci/id_scanner.git
 
