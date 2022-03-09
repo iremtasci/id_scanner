@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController nameTEController = TextEditingController(),
-      cnicTEController = TextEditingController(),
+      kimlikTcController = TextEditingController(),
       dobTEController = TextEditingController(),
       dogumTarihiController = TextEditingController(),
       sonGecerlilikController = TextEditingController();
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   KimlikModel _kimlikModel = KimlikModel();
 
 
-  Future<void> scanCnic(ImageSource imageSource) async {
+  Future<void> scankimlik(ImageSource imageSource) async {
     /// you will need to pass one argument of "ImageSource" as shown here
     KimlikModel kimlikModel =
     await KimlikOkuyucu().scanImage(imageSource: imageSource);
@@ -51,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
 
-      cnicTEController.text = _kimlikModel.cnicNumber;
-      dogumTarihiController.text = _kimlikModel.cnicIssueDate;
-      sonGecerlilikController.text = _kimlikModel.cnicExpiryDate;
+      kimlikTcController.text = _kimlikModel.kimlikNumarasi;
+      dogumTarihiController.text = _kimlikModel.kimlikIssueDate;
+      sonGecerlilikController.text = _kimlikModel.kimlikExpiryDate;
       seriNoController.text = _kimlikModel.seriNo;
     });
   }
@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 shrinkWrap: true,
                 children: [
 
-                  _cnicField(textEditingController: cnicTEController),
+                  _kimlikField(textEditingController: kimlikTcController),
                   _dataField(
                       text: 'Doğum Tarihi',
                       textEditingController: dogumTarihiController),
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     height: 20,
                   ),
-                  _getScanCNICBtn(),
+                  _getScankimlikBtn(),
                 ],
               ),
             )
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-  Widget _cnicField({TextEditingController textEditingController}) {
+  Widget _kimlikField({TextEditingController textEditingController}) {
     return Card(
       elevation: 7,
       margin: const EdgeInsets.only(top: 2.0, bottom: 5.0),
@@ -216,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextField(
                       controller: textEditingController,
                       decoration: InputDecoration(
-                        hintText: (text == "İsim") ? "İsim" : 'DD/MM/YYYY',
+                        hintText: (text == "İsim") ? "" : textEditingController.text,
                         border: InputBorder.none,
                         isDense: true,
                         hintStyle: TextStyle(
@@ -242,7 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Widget _getScanCNICBtn() {
+  Widget _getScankimlikBtn() {
     return RaisedButton(
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -251,9 +251,9 @@ class _MyHomePageState extends State<MyHomePage> {
             context: context,
             builder: (BuildContext context) {
               return CustomDialogBox(onCameraBTNPressed: () {
-                scanCnic(ImageSource.camera);
+                scankimlik(ImageSource.camera);
               }, onGalleryBTNPressed: () {
-                scanCnic(ImageSource.gallery);
+                scankimlik(ImageSource.gallery);
               });
             });
       },

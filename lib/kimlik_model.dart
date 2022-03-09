@@ -1,63 +1,61 @@
 
 class KimlikModel {
-  String _cnicNumber = "";
-  String _cnicIssueDate = "";
-  String _cnicHolderName = "";
-  String _cnicExpiryDate = "";
-  String _cnicHolderDateOfBirth = "";
+  String _kimlikNumarasi = "";
+  String _kimlikIssueDate = "";
+  String _kimlikHolderName = "";
+  String _kimlikExpiryDate = "";
+  String _kimlikHolderDateOfBirth = "";
   String _seriNo = "";
 
   @override
   String toString() {
     var string = '';
-    string += _cnicNumber.isEmpty ? "" : 'Kimlik Numarası = $cnicNumber\n';
+    string += _kimlikNumarasi.isEmpty ? "" : 'Kimlik Numarası = $kimlikNumarasi\n';
     string +=
-    _cnicExpiryDate.isEmpty ? "" : 'Kimlik Son Geçerlilik Tarihi = $cnicExpiryDate\n';
+    _kimlikExpiryDate.isEmpty ? "" : 'Kimlik Son Geçerlilik Tarihi = $kimlikExpiryDate\n';
     string +=
-    _cnicIssueDate.isEmpty ? "" : 'Cnic Issue Date = $cnicIssueDate\n';
-    string +=
-    _cnicHolderName.isEmpty ? "" : 'Cnic Holder Name = $cnicHolderName\n';
-    string += _cnicHolderDateOfBirth.isEmpty
+    _kimlikHolderName.isEmpty ? "" : 'kimlik Holder Name = $kimlikHolderName\n';
+    string += _kimlikHolderDateOfBirth.isEmpty
         ? ""
-        : 'Doğum Tarihi = $cnicHolderDateOfBirth\n';
+        : 'Doğum Tarihi = $kimlikHolderDateOfBirth\n';
     string += _seriNo.isEmpty
         ? ""
         : 'Seri No = $_seriNo\n';
     return string;
   }
 
-  String get cnicNumber => _cnicNumber;
+  String get kimlikNumarasi => _kimlikNumarasi;
 
-  String get cnicIssueDate => _cnicIssueDate;
+  String get kimlikIssueDate => _kimlikIssueDate;
 
-  String get cnicHolderName => _cnicHolderName;
+  String get kimlikHolderName => _kimlikHolderName;
 
-  String get cnicExpiryDate => _cnicExpiryDate;
+  String get kimlikExpiryDate => _kimlikExpiryDate;
 
   String get seriNo => _seriNo;
 
-  String get cnicHolderDateOfBirth => _cnicHolderDateOfBirth;
+  String get kimlikHolderDateOfBirth => _kimlikHolderDateOfBirth;
 
-  set cnicHolderDateOfBirth(String value) {
-    _cnicHolderDateOfBirth = value;
+  set kimlikHolderDateOfBirth(String value) {
+    _kimlikHolderDateOfBirth = value;
   }
   set seriNo(String value) {
     _seriNo = value;
   }
 
-  set cnicExpiryDate(String value) {
-    _cnicExpiryDate = value;
+  set kimlikExpiryDate(String value) {
+    _kimlikExpiryDate = value;
   }
 
-  set cnicHolderName(String value) {
-    _cnicHolderName = value;
+  set kimlikHolderName(String value) {
+    _kimlikHolderName = value;
   }
 
-  set cnicIssueDate(String value) {
-    _cnicIssueDate = value;
+  set kimlikIssueDate(String value) {
+    _kimlikIssueDate = value;
   }
 
-  set cnicNumber(String value) {
-    _cnicNumber = value;
+  set kimlikNumarasi(String value) {
+    _kimlikNumarasi = value;
   }
 }

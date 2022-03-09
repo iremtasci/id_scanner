@@ -14,7 +14,7 @@ class KimlikOkuyucu {
   /// it will check the image source
   late ImageSource source;
 
-  /// a model class to store cnic data
+  /// a model class to store kimlik data
   KimlikModel _kimlikDetay = KimlikModel();
 
 
@@ -31,13 +31,13 @@ class KimlikOkuyucu {
       print("tamamdır");
     }
     else {
-      return await scanCnic(imageToScan: InputImage.fromFilePath(image.path));
+      return await scankimlik(imageToScan: InputImage.fromFilePath(image.path));
     }
-    return await scanCnic(imageToScan: InputImage.fromFilePath(image.path));
+    return await scankimlik(imageToScan: InputImage.fromFilePath(image.path));
   }
 
   /// this method will process the images and extract information from the card
-  Future<KimlikModel> scanCnic({required InputImage imageToScan}) async {
+  Future<KimlikModel> scankimlik({required InputImage imageToScan}) async {
     List<String> kimlikTarihleri = [];
     GoogleMlKit.vision.languageModelManager();
     TextDetector textDetector = GoogleMlKit.vision.textDetector();
@@ -51,7 +51,7 @@ class KimlikOkuyucu {
           String selectedText = element.text;
           if (selectedText != null &&
               selectedText.length == 11 && !selectedText.contains("N") && !selectedText.contains("a") && !selectedText.contains(RegExp(r'[A-Z]'))) {
-            _kimlikDetay.cnicNumber = selectedText;
+            _kimlikDetay.kimlikNumarasi = selectedText;
           } else if (selectedText != null &&
               selectedText.length == 10 &&
               ((selectedText.contains("/", 2) &&
@@ -71,42 +71,42 @@ class KimlikOkuyucu {
       }
     }
     if (kimlikTarihleri.length > 0 &&
-        _kimlikDetay.cnicExpiryDate.length == 10 &&
-        !kimlikTarihleri.contains(_kimlikDetay.cnicExpiryDate)) {
-      kimlikTarihleri.add(_kimlikDetay.cnicExpiryDate);
+        _kimlikDetay.kimlikExpiryDate.length == 10 &&
+        !kimlikTarihleri.contains(_kimlikDetay.kimlikExpiryDate)) {
+      kimlikTarihleri.add(_kimlikDetay.kimlikExpiryDate);
     }
     if (kimlikTarihleri.length > 0 &&
-        _kimlikDetay.cnicIssueDate.length == 10 &&
-        !kimlikTarihleri.contains(_kimlikDetay.cnicIssueDate)) {
-      kimlikTarihleri.add(_kimlikDetay.cnicIssueDate);
+        _kimlikDetay.kimlikIssueDate.length == 10 &&
+        !kimlikTarihleri.contains(_kimlikDetay.kimlikIssueDate)) {
+      kimlikTarihleri.add(_kimlikDetay.kimlikIssueDate);
     }
     if (kimlikTarihleri.length > 0 &&
-        _kimlikDetay.cnicExpiryDate.length == 10 &&
-        !kimlikTarihleri.contains(_kimlikDetay.cnicExpiryDate)) {
-      kimlikTarihleri.add(_kimlikDetay.cnicExpiryDate);
+        _kimlikDetay.kimlikExpiryDate.length == 10 &&
+        !kimlikTarihleri.contains(_kimlikDetay.kimlikExpiryDate)) {
+      kimlikTarihleri.add(_kimlikDetay.kimlikExpiryDate);
     }
     if (kimlikTarihleri.length > 1) {
       kimlikTarihleri = sortDateList(dates: kimlikTarihleri);
     }
     if (kimlikTarihleri.length == 1 &&
-        _kimlikDetay.cnicHolderDateOfBirth.length != 10) {
-      _kimlikDetay.cnicHolderDateOfBirth = kimlikTarihleri[0];
+        _kimlikDetay.kimlikHolderDateOfBirth.length != 10) {
+      _kimlikDetay.kimlikHolderDateOfBirth = kimlikTarihleri[0];
 
 
     } else if (kimlikTarihleri.length == 2) {
-      _kimlikDetay.cnicIssueDate = kimlikTarihleri[0];
-      _kimlikDetay.cnicExpiryDate = kimlikTarihleri[1];
+      _kimlikDetay.kimlikIssueDate = kimlikTarihleri[0];
+      _kimlikDetay.kimlikExpiryDate = kimlikTarihleri[1];
 
     } else if (kimlikTarihleri.length == 3) {
-      _kimlikDetay.cnicHolderDateOfBirth = kimlikTarihleri[0].replaceAll(".", "/");
-      _kimlikDetay.cnicIssueDate = kimlikTarihleri[1].replaceAll(".", "/");
-      _kimlikDetay.cnicExpiryDate = kimlikTarihleri[2].replaceAll(".", "/");
+      _kimlikDetay.kimlikHolderDateOfBirth = kimlikTarihleri[0].replaceAll(".", "/");
+      _kimlikDetay.kimlikIssueDate = kimlikTarihleri[1].replaceAll(".", "/");
+      _kimlikDetay.kimlikExpiryDate = kimlikTarihleri[2].replaceAll(".", "/");
     }
     textDetector.close();
-    if (_kimlikDetay.cnicNumber.length > 0 ||
-        _kimlikDetay.cnicHolderDateOfBirth.length > 0 &&
-            _kimlikDetay.cnicIssueDate.length > 0 &&
-            _kimlikDetay.cnicExpiryDate.length > 0) {
+    if (_kimlikDetay.kimlikNumarasi.length > 0 ||
+        _kimlikDetay.kimlikHolderDateOfBirth.length > 0 &&
+            _kimlikDetay.kimlikIssueDate.length > 0 &&
+            _kimlikDetay.kimlikExpiryDate.length > 0) {
       print('KİMLİK DETAYLARI$_kimlikDetay');
       return Future.value(_kimlikDetay);
     } else {
